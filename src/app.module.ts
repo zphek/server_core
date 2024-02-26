@@ -9,10 +9,13 @@ import { ClientsModule } from './clients/clients.module';
 import { ServicesModule } from './services/services.module';
 import { QuotesController } from './quotes/quotes.controller';
 import { QuotesModule } from './quotes/quotes.module';
+import { AccountsReceivableController } from './accounts_receivable/accounts_receivable.controller';
+import { AccountsReceivableService } from './accounts_receivable/accounts_receivable.service';
+import { AccountsReceivableModule } from './accounts_receivable/accounts_receivable.module';
 
 @Module({
-  imports: [UsersModule, ProfilesModule, AuthModule, ProductsModule, ClientsModule, ServicesModule, QuotesModule],
-  controllers: [ClientsController, QuotesController],
-  providers: [ClientsService],
+  imports: [UsersModule, ProfilesModule, AuthModule, ProductsModule, ClientsModule, ServicesModule, QuotesModule, AccountsReceivableModule],
+  controllers: [ClientsController, QuotesController, AccountsReceivableController],
+  providers: [ClientsService, AccountsReceivableService],
 })
 export class AppModule {}
