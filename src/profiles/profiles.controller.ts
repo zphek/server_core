@@ -1,31 +1,22 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
 
-interface createResponse{
-    username: string,
-    password: string
-}
-
-interface updateResponse{
-
-}
-
 @Controller('profiles')
 export class ProfilesController {
     constructor(private profilesServices:ProfilesService){}
 
+    @Get()
+    getProfiles(){
+        
+    }
+
     @Post()
-    createProfile(@Body() response: createResponse){
+    createProfile(@Body() response){
         
     }
 
     @Post()
     updateProfile(){
-
-    }
-
-    @Get()
-    getProfiles(){
 
     }
 
