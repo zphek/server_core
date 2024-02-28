@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { createService, updateService } from './dto/services-dto';
 import { response } from 'express';
 
@@ -14,7 +14,7 @@ export class ServicesController {
 
     }
 
-    @Post()
+    @Put()
     updateService(@Body() response:updateService){
 
     }

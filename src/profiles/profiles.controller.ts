@@ -1,27 +1,28 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
+import { createProfile } from './dto/profiles-dto';
 
 @Controller('profiles')
 export class ProfilesController {
     constructor(private profilesServices:ProfilesService){}
 
-    @Get()
+    @Get("get")
     getProfiles(){
         
     }
 
-    @Post()
-    createProfile(@Body() response){
+    @Get('get/:id')
+    getProfileById(){
+
+    }
+    
+    @Post("create")
+    createProfile(@Body() response:createProfile){
         
     }
 
-    @Post()
+    @Put("update")
     updateProfile(){
-
-    }
-
-    @Get(':id')
-    getProfileById(){
 
     }
 }
