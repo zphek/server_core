@@ -1,15 +1,23 @@
-name: Deployment
-
+name: Deploy
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 
-jobs:
-  deployment:
-    runs-on: ubuntu-latest
-    environment: production
-    concurrency: production
+jobs: 
+  build: 
+    runs-on: amazon-linux-latest
+      
     steps:
-      - name: Auto deploy
-      run: cd ~/server_core
+    - name: Auto deploy
+      uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: 
+            cd ~/server
+            git pull origin master
+            git status
+            npm i
+            npm run start:dev
