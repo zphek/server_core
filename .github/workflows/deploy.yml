@@ -1,7 +1,7 @@
 name: Deploy
 on:
   push:
-    branches: [master]
+    branches: [ master ]
 
   jobs: 
     build: 
@@ -14,9 +14,8 @@ on:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
           script: 
-            cd ~/server
+            cd ~/server_core
             git pull origin master
             git status
             npm i
