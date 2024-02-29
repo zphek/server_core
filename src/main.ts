@@ -7,7 +7,7 @@ async function bootstrap() {
   
   const config = new DocumentBuilder()
   .setTitle("Shop api documentation")
-  .setDescription("This is the test of swagger api")
+  .setDescription("This is the test of swagger apiiii")
   .setVersion("1.0")
   .build();
 
