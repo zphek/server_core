@@ -8,7 +8,7 @@ export class UsersController {
     @Get()
     getAllUsers(){
         return {
-            mssge: "BUenassss",
+            mssge: "BUenasssssss",
             error: true
         };
     }
