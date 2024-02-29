@@ -5,7 +5,7 @@ on:
 
   jobs: 
     build: 
-      runs-on: amazon-latest
+      runs-on: amazon-linux-latest
       
       steps:
       - name: Auto deploy
@@ -16,7 +16,7 @@ on:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: 
-            cd /var/www/server
+            cd ~/server
             git pull origin master
             git status
             npm i
