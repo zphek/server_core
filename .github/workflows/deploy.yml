@@ -1,24 +1,25 @@
-# name: Deploy
+name: Deploy
 
-# on:
-#   push:
-#     branches: [ master ]
+on:
+  push:
+    branches: [ master ]
 
-# jobs:
-#   build: 
-#     runs-on: self-hosted
+jobs:
+  build: 
+    runs-on: self-hosted
       
-#     steps:
-#     - name: Auto deploy
-#       uses: appleboy/ssh-action@v1.0.0
-#       with:
-#         host: ${{ secrets.HOST }}
-#         username: ${{ secrets.USERNAME }}
-#         key: ${{ secrets.SSH_PRIVATE_KEY }}
-#         port: 22
-#         script:
-#             cd ~/server_core
-#             git pull origin master
-#             git status
-#             npm i
-#             npm run start:dev
+    steps:
+    - name: Auto deploy
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script:
+            cd ~/server_core
+            git pull origin master
+            git status
+            npm i
+            npm run build
+            pm2 restart server
