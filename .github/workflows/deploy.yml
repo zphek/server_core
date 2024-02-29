@@ -12,9 +12,4 @@ jobs:
     concurrency: production
     steps:
       - name: Auto deploy
-          script: 
-            cd ~/server_core
-            git pull origin master
-            git status
-            npm i
-            npm run start:dev
+      run: cd ~/server_core
