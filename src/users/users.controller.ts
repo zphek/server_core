@@ -7,7 +7,7 @@ export class UsersController {
 
     @Get()
     getAllUsers(){
-        return "HOlaaaa";
+        return "HOlaaaaa";
     }
 
     @Get(':id')
