@@ -16,7 +16,10 @@ export class UsersController {
 
     @Get(':id')
     getUsersById(@Param('id') id: number){
-        return '...';
+        return {
+            name: "Bernardo Baez",
+            id
+        };
     }
 
     @Post()
