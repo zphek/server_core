@@ -9,7 +9,8 @@ export class UsersController {
     getAllUsers(){
         return {
             mssge: "BUenasssssss",
-            error: true
+            error: true,
+            mesage: "La verdadera pueba e eta manito"
         };
     }
 
