@@ -17,7 +17,8 @@ export class UsersController {
     @Get(':id')
     getUsersById(@Param('id') id: number){
         return {
-            name: "Bernardo Baez",
+            name: "Bernardo",
+            lastname: "Baez",
             id
         };
     }
