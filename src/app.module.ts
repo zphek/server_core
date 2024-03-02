@@ -11,6 +11,6 @@ import { DatabaseModule } from './db/db.module';
 import { HelpersModule } from './helpers/helpers.module';
 
 @Module({
-  imports: [UsersModule, ProfilesModule, AuthModule, ProductsModule, ClientsModule, ServicesModule, QuotesModule, AccountsReceivableModule, DatabaseModule, ],
+  imports: [UsersModule, ProfilesModule, AuthModule, ProductsModule, ClientsModule, ServicesModule, QuotesModule, AccountsReceivableModule, DatabaseModule, HelpersModule],
 })
 export class AppModule {}
