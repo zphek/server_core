@@ -5,30 +5,17 @@ import { UsersService } from './users.service';
 export class UsersController {
     constructor(private usersService:UsersService) {}
 
-    @Get()
+    @Get('get')
     getAllUsers(){
-        return {
-            mssge: "BUenasssssss",
-            error: true,
-            mesage: "La verdadera pueba e manito"
-        };
+        return this.usersService.getAllUsers();
     }
 
-    @Get(':id')
+    @Get('get/:id')
     getUsersById(@Param('id') id: number){
-        return {
-            name: "Bernardo",
-            lastname: "Baez",
-            id
-        };
+        return this.usersService.getUserById(id);
     }
 
-    @Post()
-    createUser(){
-        return '...';
-    }
-
-    @Put()
+    @Put('update')
     updateUser(){
         return '...';
     }
