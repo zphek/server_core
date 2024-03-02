@@ -8,8 +8,9 @@ import { ServicesModule } from './services/services.module';
 import { QuotesModule } from './quotes/quotes.module';
 import { AccountsReceivableModule } from './accounts_receivable/accounts_receivable.module';
 import { DatabaseModule } from './db/db.module';
+import { HelpersModule } from './helpers/helpers.module';
 
 @Module({
-  imports: [UsersModule, ProfilesModule, AuthModule, ProductsModule, ClientsModule, ServicesModule, QuotesModule, AccountsReceivableModule, DatabaseModule],
+  imports: [UsersModule, ProfilesModule, AuthModule, ProductsModule, ClientsModule, ServicesModule, QuotesModule, AccountsReceivableModule, DatabaseModule, ],
 })
 export class AppModule {}

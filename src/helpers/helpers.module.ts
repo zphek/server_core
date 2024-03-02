@@ -5,4 +5,4 @@ import { crypt } from './bcrypt';
     providers: [crypt],
 })
 
-export class ClientsModule {}
+export class HelpersModule {}
