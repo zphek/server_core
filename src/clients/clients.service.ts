@@ -8,16 +8,15 @@ import { createClient } from './dto/client-dto';
 export class ClientsService {
     constructor( 
        @InjectRepository(Client) 
-       private ClientRepository: Repository<Client>,
-       private readonly entityManager: EntityManager,
+       private ClientRepository: Repository<Client>
     ){}
     
     createClient(response: createClient){
         const {client_fullname, email, phone_number} = response;
-        this.ClientRepository.create({
-            client_fullname,
+        // this.ClientRepository.create({
+        //     client_fullname,
 
-        })   
+        // })   
     }
 
     getClients(){

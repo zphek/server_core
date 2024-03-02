@@ -9,7 +9,7 @@ export class ClientsController {
 
     @Post("/create")
     createClient(@Body() response: createClient){
-        
+        return response;
     }
 
     @Get("/get")
