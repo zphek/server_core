@@ -4,14 +4,15 @@ import { User } from 'src/db/entities/User';
 import { createUser } from 'src/users/dto/user-dto';
 import { Repository } from 'typeorm';
 import { signIn, signUp } from './dto/auth-dto';
-import { encrypt } from 'helpers/bcrypt';
+import { crypt } from 'src/helpers/bcrypt';
 
 @Injectable()
 export class AuthService {
-    constructor(@InjectRepository(User) private UserRepository:Repository<User>) {}
+    constructor(@InjectRepository(User) private UserRepository:Repository<User>,
+    private helper:crypt) {}
 
     signIn(response:signIn){
-        encrypt(response.password).then(res=>{
+        this.helper.encrypt(response.password).then(res=>{
             response.password = res;
         })
 
@@ -20,7 +21,7 @@ export class AuthService {
     }
 
     signUp(response:signUp){
-        encrypt(response.user_password).then(res=>{
+        this.helper.encrypt(response.user_password).then(res=>{
             response.user_password = res;
         })
 
