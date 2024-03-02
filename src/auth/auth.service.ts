@@ -3,14 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/db/entities/User';
 import { Repository } from 'typeorm';
 import { signIn, signUp } from './dto/auth-dto';
-import { hash } from "bcrypt";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class AuthService {
     constructor(@InjectRepository(User) private UserRepository:Repository<User>) {}
 
     signIn(response:signIn){
-        hash(response.password, 20040915).then(res=>{
+        bcrypt.hash(response.password, 20040915).then(res=>{
             response.password = res;
         })
 
@@ -19,7 +19,7 @@ export class AuthService {
     }
 
     signUp(response:signUp){
-        hash(response.user_password, 20040915).then(res=>{
+        bcrypt.hash(response.user_password, 20040915).then(res=>{
             response.user_password = res;
         })
 
