@@ -9,11 +9,11 @@ export class AuthServices{
         private readonly AuthService:AuthServices
     ){}
 
-    signIn(response:signIn){
-        this.AuthService.signIn(response)
+    async signIn(response:signIn){
+        return await this.AuthService.signIn(response)
     }
 
-    signUp(response:signUp){
-        this.AuthService.signUp(response);
+    async signUp(response:signUp){
+        return await this.AuthService.signUp(response);
     }
 }
