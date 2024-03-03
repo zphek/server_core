@@ -4,16 +4,14 @@ import { signIn, signUp } from "./dto/auth-dto";
 
 @Injectable()
 export class AuthServices{
-    constructor(
-        @Inject(UsersService)
-        private readonly AuthService:AuthServices
-    ){}
+    @Inject(UsersService)
+    private readonly service:UsersService
 
-    async signIn(response:signIn){
-        return await this.AuthService.signIn(response)
+    signIn(response:signIn){
+        return this.service.signIn(response)
     }
 
-    async signUp(response:signUp){
-        return await this.AuthService.signUp(response);
+    signUp(response:signUp){
+        return this.service.signUp(response);
     }
 }

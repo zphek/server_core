@@ -12,17 +12,22 @@ export class UsersService {
         private UserRepository: Repository<User>
     ){}
 
-    async signIn(response:signIn): Promise<any> {
-        response.password = await bcrypt.hash(response.password, 20040915);
+    async signIn(response:signIn) {
+        bcrypt.hash(response.password, 20040915).then(resp=>{
+            response.password = resp;
+        })
 
         console.log(response);
         return await this.UserRepository.query(`CALL users_sign_in('${response.username}', '${response.password}');`);
     }
 
-    async signUp(response:signUp): Promise<any> {
-        response.user_password = await bcrypt.hash(response.user_password, 20040915);
+    async signUp(response:signUp) {
+        bcrypt.hash(response.user_password, 20040915).then(resp=>{
+            response.user_password = resp;
+        })
 
         console.log(response);
+
         return await this.UserRepository.query(`CALL users_sign_up('${response.username}', '${response.full_name}', '${response.user_password}', '${response.email}', '${response.phone_number}');`);
     }
 
