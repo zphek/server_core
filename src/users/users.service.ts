@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { signIn, signUp } from 'src/auth/dto/auth-dto';
-import { User } from 'src/db/entities/User';
+import { signIn, signUp } from '../auth/dto/auth-dto';
+import { User } from '../db/entities/User';
 import { Repository } from 'typeorm';
 import * as bcrypt from "bcrypt";
 
@@ -24,7 +24,7 @@ export class UsersService {
     async signUp(response:signUp) {
         bcrypt.hash(response.user_password, 20040915).then(resp=>{
             response.user_password = resp;
-        })
+        })  
 
         console.log(response);
 
