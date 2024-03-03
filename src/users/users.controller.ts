@@ -6,13 +6,13 @@ export class UsersController {
     constructor(private usersService:UsersService) {}
 
     @Get('get')
-    getAllUsers(){
-        return this.usersService.getAllUsers();
+    async getAllUsers(){
+        return await this.usersService.getAllUsers();
     }
 
     @Get('get/:id')
-    getUsersById(@Param('id') id: number){
-        return this.usersService.getUserById(id);
+    async getUsersById(@Param('id') id: number){
+        return await this.usersService.getUserById(id);
     }
 
     @Put('update')

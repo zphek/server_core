@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { signIn, signUp } from 'src/auth/dto/auth-dto';
 import { User } from 'src/db/entities/User';
 import { Repository } from 'typeorm';
-// import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UsersService {
@@ -12,25 +12,21 @@ export class UsersService {
         private UserRepository: Repository<User>
     ){}
 
-    signIn(response:signIn){
-        // bcrypt.hash(response.password, 20040915).then(res=>{
-        //     response.password = res;
-        // })
+    async signIn(response:signIn): Promise<any> {
+        response.password = await bcrypt.hash(response.password, 20040915);
 
         console.log(response);
-        return this.UserRepository.query(`CALL users_sign_in('${response.username}', '${response.password}');`);
+        return await this.UserRepository.query(`CALL users_sign_in('${response.username}', '${response.password}');`);
     }
 
-    signUp(response:signUp){
-        // bcrypt.hash(response.user_password, 20040915).then(res=>{
-        //     response.user_password = res;
-        // })
+    async signUp(response:signUp): Promise<any> {
+        response.user_password = await bcrypt.hash(response.user_password, 20040915);
 
         console.log(response);
-        return this.UserRepository.query(`CALL users_sign_up('${response.username}', '${response.full_name}', '${response.user_password}', '${response.email}', '${response.phone_number}');`);
+        return await this.UserRepository.query(`CALL users_sign_up('${response.username}', '${response.full_name}', '${response.user_password}', '${response.email}', '${response.phone_number}');`);
     }
 
-    async getAllUsers(){
+    async getAllUsers(): Promise<any>{
         return await this.UserRepository.find();
     }
 
