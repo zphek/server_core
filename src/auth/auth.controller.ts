@@ -1,8 +1,9 @@
-import { Body, Controller, Inject, NotFoundException, Post } from '@nestjs/common';
+import { Body, Controller, InternalServerErrorException, NotFoundException, Post, Req, UseGuards } from '@nestjs/common';
 import { signIn, signUp } from './dto/auth-dto';
 import { AuthServices } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from './guards/auth.guard';
 
 @ApiTags("Auth endpoints:")
 @Controller('auth')
@@ -12,12 +13,14 @@ export class AuthController {
         private readonly JwtService: JwtService
     ) {}
 
-    @Post('/login')
+    @Post('login')
     async logInUser(@Body() response: signIn) {
-        console.log("buenass");
-        const Data = await this.service.signIn(response); // Suponiendo que esto devuelve el JSON del usuario
+        if(response.password.trim() === "" || response.username.trim() === ""){
+            throw new InternalServerErrorException("Falta el campo username o password.");
+        }
 
-        // Aquí extraemos el JSON del usuario
+        const Data = await this.service.signIn(response);
+
         const userData = Data[0][0];
 
         if(userData.message){
@@ -27,8 +30,18 @@ export class AuthController {
         return { accessToken: this.JwtService.sign(userData) };
     }
 
-    @Post('/register')
+    @Post('register')
     async signUp(@Body() response:signUp){
         return await this.service.signUp(response);
+    }
+
+    @Post('close')
+    @UseGuards(AuthGuard)
+    async closeSession(@Req() request:Request){
+        request['user'] = null;
+        return {
+            error: false,
+            mssge: "Close session sucessfully!"
+        }
     }
 }

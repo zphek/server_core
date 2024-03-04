@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ProductCService } from './product_c.service';
 import { CreateProductC } from './dto/create-product_c.dto';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
-@Controller('product-c')
+@Controller('category')
+@UseGuards(AuthGuard)
 export class ProductCController {
   constructor(private readonly productCService: ProductCService) {}
 
@@ -16,11 +18,13 @@ export class ProductCController {
     return this.productCService.findAll();
   }
 
-  @Post('update')
-  findOne(@Param('id') id: string) {
-    return this.productCService.findOne(+id);
+  @Get('get/:id')
+  findById(@Param('id') ID:number) {
+    return this.productCService.findOne(ID);
   }
 
-  
-
+  @Post('update')
+  findOne(@Param('id') id: number) {
+    return "..........";
+  }
 }

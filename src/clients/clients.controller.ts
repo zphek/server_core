@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { createClient } from './dto/client-dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -16,13 +16,14 @@ export class ClientsController {
     }
 
     @Get("get")
-    getClients(){
+    getClients(@Req() request:Request){
+        console.log(request['user']);
         return this.clientsService.getClients();
     }
 
     @Get("get/:id")
-    getClientById(){
-
+    getClientById(@Param('id') id:number){
+        return this.clientsService.getClientsById(id);
     }
 
     @Put("update")

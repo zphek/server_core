@@ -7,15 +7,12 @@ export class AuthServices{
     @Inject(UsersService)
     private readonly service:UsersService
 
-    signIn(response:signIn){
-        return this.service.signIn(response)
+    async signIn(response:signIn){
+        return await this.service.signIn(response)
     }
 
     async signUp(response:signUp){
-        try {
-            const res = await this.service.signUp(response);
-        } catch (error) {
-            return await error;
-        }
+        const res = await this.service.signUp(response);
+        return res;
     }
 }

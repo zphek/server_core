@@ -32,11 +32,17 @@ export class AuthGuard implements CanActivate{
             throw new UnauthorizedException();
         }
 
+        console.log(request.url);
+
         return true;
     }
 
     private extractTokenFromHeader(request: Request): string | undefined {
         const [type, token] = request.headers.authorization?.split(' ') ?? [];
         return type === 'Bearer' ? token : undefined;
+    }
+
+    private hasRequiredLevel(payload:any, url:string){
+        
     }
 }

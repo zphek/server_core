@@ -4,6 +4,10 @@ import { Client } from './entities/Client';
 import { Invoice } from './entities/Invoice';
 import { User } from './entities/User';
 import { Quote } from './entities/Quote';
+import { Account_R } from './entities/Account_R';
+import { Profile } from './entities/Profile';
+import { Product } from './entities/Product';
+import { Service } from './entities/Service';
 
 @Module({
     imports: [TypeOrmModule.forRoot({
@@ -15,7 +19,7 @@ import { Quote } from './entities/Quote';
         password: process.env.DB_PASSWORD || '1234',
         autoLoadEntities: true,
         synchronize: false,
-        entities: [ Client, Invoice, User, Quote ],
+        entities: [ Client, Invoice, User, Quote, Account_R, Profile, Product, Service ],
         logging: ['query', 'error'],
         logger: "file"
     })],

@@ -22,4 +22,12 @@ export class ClientsService {
     getClients(){
         return this.ClientRepository.find();
     }
+
+    getClientsById(ID:number){
+        this.ClientRepository.findOne({
+            where:{
+                ID
+            }
+        });
+    }
 }
