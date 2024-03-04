@@ -21,6 +21,9 @@ export class UsersController {
 
     @Put('update')
     updateUser(){
-        return '...';
+        return {
+            error: false,
+            message: "Updated!"
+        };
     }
 }
