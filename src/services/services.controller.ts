@@ -1,7 +1,8 @@
 import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { createService, updateService } from './dto/services-dto';
-import { response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Services endpoints:")
 @Controller('services')
 export class ServicesController {
     @Get("get")
