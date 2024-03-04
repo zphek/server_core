@@ -11,7 +11,11 @@ export class AuthServices{
         return this.service.signIn(response)
     }
 
-    signUp(response:signUp){
-        return this.service.signUp(response);
+    async signUp(response:signUp){
+        try {
+            const res = await this.service.signUp(response);
+        } catch (error) {
+            return await error;
+        }
     }
 }

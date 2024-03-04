@@ -1,9 +1,11 @@
-import { Controller, Get, Param, Put } from '@nestjs/common';
+import { Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @ApiTags("User's endpoints:")
 @Controller('users')
+@UseGuards(AuthGuard)
 export class UsersController {
     constructor(private usersService:UsersService) {}
 
