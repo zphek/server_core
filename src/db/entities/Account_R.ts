@@ -10,7 +10,7 @@ export class Account_R{
     invoice_id: number
 
     @Column({ nullable: false })
-    amount: Double
+    amount: number
 
     @Column({ nullable: false })
     due_date: Date

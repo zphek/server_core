@@ -16,7 +16,7 @@ export class Product{
     category_id: number
 
     @Column({ nullable: false })
-    price: Double
+    price: number
 
     @Column({ nullable: false })
     isVisible: boolean

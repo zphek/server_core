@@ -13,7 +13,7 @@ export class Quote{
     quote_date: Date
 
     @Column({ nullable: false })
-    total_amount: Double
+    total_amount: number
 
     @Column({ nullable: false })
     Status: string

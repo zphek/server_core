@@ -13,7 +13,7 @@ export class Service{
     service_description: string
 
     @Column({ nullable: false })
-    price: Double
+    price: number
 
     @Column({ nullable: false })
     isVisible: boolean
