@@ -9,4 +9,4 @@ import { Quote } from 'src/db/entities/Quote';
   controllers: [QuotesController],
   providers: [QuotesService]
 })
-export class QuotesModule {}
+export class QuotesModule {}  
