@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Client } from './entities/Client';
 import { Invoice } from './entities/Invoice';
 import { User } from './entities/User';
+import { Quote } from './entities/Quote';
 
 @Module({
     imports: [TypeOrmModule.forRoot({
@@ -14,7 +15,9 @@ import { User } from './entities/User';
         password: process.env.DB_PASSWORD || '1234',
         autoLoadEntities: true,
         synchronize: false,
-        entities: [ Client, Invoice, User ]
+        entities: [ Client, Invoice, User, Quote ],
+        logging: ['query', 'error'],
+        logger: "file"
     })],
 })
 

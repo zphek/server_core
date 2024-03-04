@@ -9,8 +9,20 @@ import { QuotesModule } from './quotes/quotes.module';
 import { AccountsReceivableModule } from './accounts_receivable/accounts_receivable.module';
 import { DatabaseModule } from './db/db.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { ProductCModule } from './product_c/product_c.module';
 
 @Module({
-  imports: [UsersModule, ProfilesModule, AuthModule, ProductsModule, ClientsModule, ServicesModule, QuotesModule, AccountsReceivableModule, DatabaseModule, CloudinaryModule],
+  imports: [
+    UsersModule, 
+    ProfilesModule, 
+    AuthModule, 
+    ProductsModule, 
+    ClientsModule, 
+    ServicesModule, 
+    QuotesModule, 
+    AccountsReceivableModule, 
+    DatabaseModule, 
+    CloudinaryModule, 
+    ProductCModule],
 })
 export class AppModule {}
