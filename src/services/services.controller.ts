@@ -4,17 +4,22 @@ import { response } from 'express';
 
 @Controller('services')
 export class ServicesController {
-    @Get()
+    @Get("get")
     getServices(){
 
     }
 
-    @Post()
+    @Get("get/:id")
+    getServicesById(){
+        
+    }
+
+    @Post("create")
     createServices(@Body() response:createService){
 
     }
 
-    @Put()
+    @Put("update")
     updateService(@Body() response:updateService){
 
     }
