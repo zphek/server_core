@@ -16,18 +16,11 @@ export class Quote{
     total_amount: number
 
     @Column({ nullable: false })
-    Status: string
-
-    @Column({ nullable: false })
-    isVisible: boolean
+    status: string
 
     @Column({ default: new Date() })
     createdAt: Date
 
     @Column({ default: new Date() })
     updatedAt: Date
-
-    constructor(quote: Partial<Quote>){
-        Object.assign(this, quote);
-    }
 }

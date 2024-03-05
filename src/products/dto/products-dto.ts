@@ -10,8 +10,9 @@ export class createProduct{
 }
 
 export class Products{
+    ID: number
     product_name: string
-    stock: number
+    quantity: number
     category_name: string
     price: number
     isVisible: boolean

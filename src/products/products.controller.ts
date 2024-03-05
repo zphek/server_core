@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { addProduct, createProduct } from './dto/products-dto';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
@@ -27,10 +27,10 @@ export class ProductsController {
         return await this.service.filterProductsByCategory(category);
     }
 
-    @Post("addProduct")
+    @Post("add")
     @UseGuards(AuthGuard)
-    async addProduct(@Body() response:addProduct){
-        return await this.service.addProduct(response);
+    async addProduct(@Body() response:addProduct, @Req() request:Request){
+        return await this.service.addProduct(response, request['user']);
     }
 
     @Post("create")
@@ -42,6 +42,6 @@ export class ProductsController {
     @Put("update")
     @UseGuards(AuthGuard)
     updateProduct(){
-
+        
     }
 }
