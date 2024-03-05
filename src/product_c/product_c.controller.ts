@@ -4,11 +4,11 @@ import { CreateProductC } from './dto/create-product_c.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('category')
-@UseGuards(AuthGuard)
 export class ProductCController {
   constructor(private readonly productCService: ProductCService) {}
 
   @Post('create')
+  @UseGuards(AuthGuard)
   create(@Body() response: CreateProductC) {
     return this.productCService.create(response);
   }
@@ -24,6 +24,7 @@ export class ProductCController {
   }
 
   @Post('update')
+  @UseGuards(AuthGuard)
   findOne(@Param('id') id: number) {
     return "..........";
   }

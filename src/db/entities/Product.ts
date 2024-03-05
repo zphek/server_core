@@ -1,4 +1,5 @@
-import { Column, Double, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Double, Entity, JoinColumn, JoinTable, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Product_C } from "./Product_C";
 
 @Entity({name: 'products'})
 export class Product{
@@ -12,7 +13,7 @@ export class Product{
     @Column({ nullable: false })
     stock: number
 
-    @Column({ nullable: false })
+    @Column()
     category_id: number
 
     @Column({ nullable: false })
@@ -29,8 +30,4 @@ export class Product{
 
     @Column({ nullable: false })
     url_image: string
-
-    constructor(product: Partial<Product>){
-        Object.assign(this, product);
-    }
 }
