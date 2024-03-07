@@ -2,10 +2,9 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from 'src/db/entities/Product';
 import { Repository } from 'typeorm';
-import { addProduct, createProduct } from './dto/products-dto';
+import { UpdateProduct, createProduct } from './dto/products-dto';
 import { Product_C } from 'src/db/entities/Product_C';
-import { Quote } from 'src/db/entities/Quote';
-import { Quote_products } from 'src/db/entities/Quote_product';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 export class ProductAlreadyExistsException extends HttpException {
     constructor() {
@@ -26,10 +25,7 @@ export class ProductsService {
         private readonly ProductRepository:Repository<Product>,
         @InjectRepository(Product_C)
         private readonly Product_CRepository:Repository<Product_C>,
-        @InjectRepository(Quote)
-        private readonly QuoteRepository:Repository<Quote>,
-        @InjectRepository(Quote_products)
-        private readonly QuoteProductsRepository:Repository<Quote_products>
+        private readonly CloudService:CloudinaryService
     ) {}
 
     async getProducts(){
@@ -66,30 +62,30 @@ export class ProductsService {
         return products;
     }
 
-    async addProduct(response:addProduct, user:any){
-        const quote = await this.QuoteRepository.save({
-            client_id: user.ID,
-            quote_date: new Date(),
-            Status: "Pending",
-            total_amount: 0
-        })
+    // async addProduct(response:addProduct, user:any){
+    //     const quote = await this.QuoteRepository.save({
+    //         client_id: user.ID,
+    //         quote_date: new Date(),
+    //         Status: "Pending",
+    //         total_amount: 0
+    //     })
 
-        try {
-            response.products.map(async (ele)=>{
-                const qp = await this.QuoteProductsRepository.save({
-                    id_product: ele.ID,
-                    id_quote: quote.ID,
-                    quantity: ele.quantity,
-                })
-            });
-        } catch (error) {
-            throw error;
-        }
+    //     try {
+    //         response.products.map(async (ele)=>{
+    //             const qp = await this.QuoteProductsRepository.save({
+    //                 id_product: ele.ID,
+    //                 id_quote: quote.ID,
+    //                 quantity: ele.quantity,
+    //             })
+    //         });
+    //     } catch (error) {
+    //         throw error;
+    //     }
 
-        return { message: "Successful!", error: false }
-    }
+    //     return { message: "Successful!", error: false }
+    // }
 
-    async createProduct(new_product: createProduct) {
+    async createProduct(new_product: createProduct, file:Express.Multer.File) {
         
         const productExist = this.ProductRepository.findOne({
             where: {
@@ -101,17 +97,27 @@ export class ProductsService {
             throw new ProductAlreadyExistsException();
         }
 
+        const {url} = await this.CloudService.uploadFile(file);
+
         return await this.ProductRepository.save({
             product_name: new_product.product_name,
             price: new_product.price,
             category_id: new_product.category_id,
             stock: new_product.stock,
-            url_image: new_product.url_image,
+            url_image: url,
             isVisible: new_product.isVisible
         });
     }
 
-    updateProduct(){
+    async updateProduct(response: UpdateProduct){
+        const updated_product = await this.ProductRepository.update(response.ID, { 
+            product_name: response.product_name,
+            stock: response.stock,
+            price: response.price,
+            isVisible: response.isVisible,
+            category_id: response.category_id
+         })
 
+         return updated_product;
     }
 }

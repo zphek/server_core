@@ -21,13 +21,13 @@ export class AuthController {
 
         const Data = await this.service.signIn(response);
 
-        const userData = Data[0][0];
-
-        if(userData.message){
-            throw new NotFoundException(userData.message);
+        if(Data.message){
+            throw new NotFoundException(Data.message);
         }
 
-        return { accessToken: this.JwtService.sign(userData) };
+        console.log(Data)
+
+        return { accessToken: this.JwtService.sign(Data) };
     }
 
     @Post('register')

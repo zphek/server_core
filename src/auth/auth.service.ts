@@ -12,7 +12,6 @@ export class AuthServices{
     }
 
     async signUp(response:signUp){
-        const res = await this.service.signUp(response);
-        return res;
+        return await this.service.signUp(response);
     }
 }

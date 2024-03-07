@@ -1,7 +1,8 @@
-import { Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { QuotesService } from './quotes.service';
+import { createQuote } from './dto/quotes-dto';
 
 @ApiTags("Quotes endpoints:")
 @Controller('quotes')
@@ -22,8 +23,9 @@ export class QuotesController {
     }
 
     @Post("create")
-    async createQuote(){
-        return await this.services.createQuote();
+    async createQuote(@Body() response:createQuote, @Req() request:Request){
+        const { ID } = request['user'];
+        return await this.services.createQuote(response, ID);
     }
 
     @Put("update")

@@ -9,15 +9,11 @@ export class createProduct{
     url_image: string
 }
 
-export class Products{
+export class UpdateProduct{
     ID: number
     product_name: string
-    quantity: number
-    category_name: string
+    stock: number
+    category_id: number
     price: number
     isVisible: boolean
-}
-
-export class addProduct{
-    products: Products[]
 }

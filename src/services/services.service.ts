@@ -24,7 +24,11 @@ export class ServicesService {
     }
 
     async createService(data:createService){
-        const service = new Service(data);
+        const service = new Service({
+            service_name: data.service_name,
+            price: data.price,
+            service_description: data.services_description
+        });
 
         return await this.ServiceRepository.save(service);
     }

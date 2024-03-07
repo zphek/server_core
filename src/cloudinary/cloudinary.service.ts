@@ -1,25 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { v2 as cloudinary} from "cloudinary";
+const streamifier =  require("streamifier");
 
 
+import { CloudinaryResponse } from './cloudinary-response';
 @Injectable()
 export class CloudinaryService {
-  create(createCloudinaryDto) {
-    return 'This action adds a new cloudinary';
-  }
+  
+  uploadFile(file:Express.Multer.File): Promise<CloudinaryResponse>{
+    
+    return new Promise<CloudinaryResponse>((resolve, reject)=>{
+      
+      const uploadStream = cloudinary.uploader.upload_stream(
+        (error, result)=>{
+          if (error) return reject(error);
+          resolve(result);
+        }
+      );
 
-  findAll() {
-    return `This action returns all cloudinary`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} cloudinary`;
-  }
-
-  update(id: number, updateCloudinaryDto) {
-    return `This action updates a #${id} cloudinary`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} cloudinary`;
+      streamifier.createReadStream(file.buffer).pipe(uploadStream);
+    });
   }
 }

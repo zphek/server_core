@@ -1,0 +1,20 @@
+class Products{
+    ID: number
+    product_name: string
+    quantity: number
+    category_name: string
+    price: number
+    isVisible: boolean
+}
+
+class Services{
+    ID: number
+    service_name: string
+    price: number
+    isVisible: boolean
+}
+
+export class createQuote{
+    products: Products[]
+    Services: Services[]
+}
