@@ -27,7 +27,7 @@ export class ServicesService {
         const service = new Service({
             service_name: data.service_name,
             price: data.price,
-            service_description: data.services_description
+            services_description: data.services_description
         });
 
         return await this.ServiceRepository.save(service);

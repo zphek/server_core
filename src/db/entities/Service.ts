@@ -10,7 +10,7 @@ export class Service{
     service_name: string
 
     @Column({ nullable: false })
-    service_description: string
+    services_description: string
 
     @Column({ nullable: false })
     price: number
