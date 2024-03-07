@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from "@nestjs/common";
+import { CanActivate, ExecutionContext, HttpException, Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Request } from "express";
 import { UsersService } from "src/users/users.service";
@@ -32,11 +32,15 @@ export class AuthGuard implements CanActivate{
             );
             
             request['user'] = payload;
+            
+            console.log(request.url)
+
+            if(!this.hasRequiredLevel(payload, request.url)){
+                return false;
+            }
         } catch {
             throw new UnauthorizedException();
         }
-
-        console.log(request.url);
 
         return true;
     }
@@ -46,10 +50,34 @@ export class AuthGuard implements CanActivate{
         return type === 'Bearer' ? token : undefined;
     }
 
-    private hasRequiredLevel(payload:payload, url:string){
+    private hasRequiredLevel(payload:payload, url:string):boolean{
         let urlEndpoint:string = "";
-        url.split("/").forEach(endpoint=>{
-            urlEndpoint += endpoint;
-        })
+        const endpoints = url.split("/");
+        
+        for(let i = 0; i < endpoints.length; i++){
+            urlEndpoint += endpoints[i] + "/";
+
+            console.log(urlEndpoint)
+
+            switch(urlEndpoint){
+                case '/products/create/':
+                    if(!this.hasPrivilege(payload.privileges, 'ALL')){
+                        throw new HttpException("You don't have the enough privileges.", 400);
+                    }
+                    break;
+            }
+        }
+
+        return true;
+    }
+
+    private hasPrivilege(privileges:[], privilege:string){
+        for(let i = 0; i < privileges.length; i++){
+            if(privileges[i] == privilege){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

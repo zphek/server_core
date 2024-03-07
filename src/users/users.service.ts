@@ -33,9 +33,11 @@ export class UsersService {
         //     privileges: permissions[0][`getPermissions(${ID})`]
         // })
 
+        console.log(permissions)
+
         return {
             user: userData[0][0],
-            privileges: permissions[0][`getPermissions(${ID})`].split(', ')
+            privileges: permissions[0][`getPermissions(${ID})`] != null ? permissions[0][`getPermissions(${ID})`].split(', ') : [null]
         }
     }
 
