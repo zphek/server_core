@@ -23,5 +23,5 @@ export class User{
 
 export class payload{
     user: User
-    privileges: []
+    privileges: string[]
 }

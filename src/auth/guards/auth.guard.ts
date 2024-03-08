@@ -1,8 +1,8 @@
 import { CanActivate, ExecutionContext, HttpException, Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Request } from "express";
-import { UsersService } from "src/users/users.service";
 import { payload } from "../dto/auth-dto";
+import { requiredPrivileges } from "./ProtectedRoutes";
 
 @Injectable()
 export class AuthGuard implements CanActivate{    
@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate{
             
             request['user'] = payload;
             
-            console.log(request.url)
+            //console.log(request.url)
 
             if(!this.hasRequiredLevel(payload, request.url)){
                 return false;
@@ -50,33 +50,30 @@ export class AuthGuard implements CanActivate{
         return type === 'Bearer' ? token : undefined;
     }
 
-    private hasRequiredLevel(payload:payload, url:string):boolean{
-        let urlEndpoint:string = "";
-        const endpoints = url.split("/");
-        
-        for(let i = 0; i < endpoints.length; i++){
-            urlEndpoint += endpoints[i] + "/";
-
-            console.log(urlEndpoint)
-
-            switch(urlEndpoint){
-                case '/products/create/':
-                    if(!this.hasPrivilege(payload.privileges, 'ALL')){
-                        throw new HttpException("You don't have the enough privileges.", 400);
+    private hasRequiredLevel(payload: payload, url: string): boolean {    
+        for (const [route, privileges] of Object.entries(requiredPrivileges)) {
+            if (url.startsWith(route)) {
+                for (const privilege of privileges) {
+                    if (this.hasPrivilege(payload.privileges, privilege)) {
+                        console.log(payload.privileges);
+                        return true;
                     }
-                    break;
+                }
+                return false;
             }
         }
-
+    
         return true;
     }
+    
 
-    private hasPrivilege(privileges:[], privilege:string){
+    private hasPrivilege(privileges:string[], privilege:string){
         for(let i = 0; i < privileges.length; i++){
             if(privileges[i] == privilege){
                 return true;
             }
         }
+
 
         return false;
     }

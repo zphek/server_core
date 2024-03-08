@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { UsersService } from "../users/users.service";
-import { signIn, signUp } from "./dto/auth-dto";
+import { payload, signIn, signUp } from "./dto/auth-dto";
 
 @Injectable()
 export class AuthServices{
@@ -11,7 +11,7 @@ export class AuthServices{
         return await this.service.signIn(response)
     }
 
-    async signUp(response:signUp){
-        return await this.service.signUp(response);
+    async signUp(response:signUp, data:payload){
+        return await this.service.signUp(response, data);
     }
 }

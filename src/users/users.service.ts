@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { signIn, signUp } from '../auth/dto/auth-dto';
+import { payload, signIn, signUp } from '../auth/dto/auth-dto';
 import { User } from '../db/entities/User';
 import { Repository } from 'typeorm';
 import * as bcrypt from "bcrypt";
@@ -41,29 +41,45 @@ export class UsersService {
         }
     }
 
-    async signUp(response:signUp) {
-        // Verificar la longitud de la contraseña
-
-        console.log(response.user_password);
+    async signUp(response:signUp, data:payload) {
+        console.log(response);
 
         if (response.user_password.length < 10) {
             throw new HttpException('La contraseña debe tener al menos 10 caracteres, una letra mayúscula y un número.', 500);
         }
 
-        // Verificar si la contraseña contiene al menos una letra mayúscula y un número
         const containsUpperCase = /[A-Z]/.test(response.user_password);
         const containsNumber = /[0-9]/.test(response.user_password);
         if (!containsUpperCase || !containsNumber) {
             throw new HttpException('La contraseña debe tener al menos 10 caracteres, una letra mayúscula y un número.', 500);
+        }
+
+        if(await this.UserRepository.findOne({ where:{ username: response.username}})){
+            throw new HttpException('This user exist, choose another username.', 500);   
         }
     
         bcrypt.hash(response.user_password, 20040915).then(resp=>{
             response.user_password = resp;
         })  
 
-        console.log(response);
+        try {
+            console.log(data)
+            if(data && data.privileges){
+                if(Array.isArray(data.privileges) && (data.privileges.includes('ALL') || data.privileges.includes('Users'))) {
+                    return await this.UserRepository.save({
+                        user: response.username,
+                        full_name: response.full_name,
+                        profile_type: response.profile_type,
+                        phone_number: response.phone_number,
+                        user_password: response.user_password
+                    })
+                }            
+            }
 
-        return await this.UserRepository.query(`CALL users_sign_up('${response.username}', '${response.full_name}', '${response.user_password}', '${response.email}', '${response.phone_number}');`);
+            return await this.UserRepository.query(`CALL users_sign_up('${response.username}', '${response.full_name}', '${response.user_password}', '${response.email}', '${response.phone_number}');`);
+        } catch (error) {
+            throw new HttpException(error.sqlMessage, 500);
+        }
     }
 
     async getAllUsers(): Promise<any>{

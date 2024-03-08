@@ -10,6 +10,7 @@ import { AccountsReceivableModule } from './accounts_receivable/accounts_receiva
 import { DatabaseModule } from './db/db.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { ProductCModule } from './product_c/product_c.module';
+import { InvoiceModule } from './invoice/invoice.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ProductCModule } from './product_c/product_c.module';
     AccountsReceivableModule, 
     DatabaseModule, 
     CloudinaryModule, 
-    ProductCModule],
+    ProductCModule, 
+    InvoiceModule],
 })
 export class AppModule {}

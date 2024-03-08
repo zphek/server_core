@@ -6,9 +6,7 @@ export class createUser{
         description: "Nombre de usuario único",
         example: "john_doe"
     })
-    username: string
-
-    
+    username: string    
     full_name: string
     user_password: string
     email: string
