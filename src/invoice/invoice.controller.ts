@@ -2,9 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseGuards } fro
 import { InvoiceService } from './invoice.service';
 import { CreateInvoice } from './dto/invoice-dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 
 @Controller('invoice')
+@ApiTags('Invoices endpoints:')
 @UseGuards(AuthGuard)
 export class InvoiceController {
   constructor(private readonly invoiceService: InvoiceService) {}
