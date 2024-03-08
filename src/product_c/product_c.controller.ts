@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { ProductCService } from './product_c.service';
 import { CreateProductC } from './dto/create-product_c.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('category')
+@ApiTags('Categories endpoints:')
 export class ProductCController {
   constructor(private readonly productCService: ProductCService) {}
 
