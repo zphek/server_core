@@ -24,8 +24,8 @@ export class AuthController {
 
         const Data = await this.service.signIn(response);
 
-        if(Data.message){
-            throw new NotFoundException(Data.message);
+        if(!Data){
+            throw new NotFoundException("Incorrect username or password.");
         }
 
         console.log(Data)

@@ -97,8 +97,8 @@ export class ProductsService {
             throw new ProductAlreadyExistsException();
         }
 
-        const {url} = await this.CloudService.uploadFile(file);
-
+        //const {url} = await this.CloudService.uploadFile(file);
+        const url = "";
         return await this.ProductRepository.save({
             product_name: new_product.product_name,
             price: new_product.price,

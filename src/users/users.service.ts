@@ -19,13 +19,18 @@ export class UsersService {
 
         // console.log(response);
 
-        const userData = await this.UserRepository.query(`CALL users_sign_in('${response.username}', '${response.password}');`);
+        const userData = await this.UserRepository.findOne({
+            where: {
+                username: response.username,
+                user_password: response.password
+            }
+        });
 
-        if(userData.message){
-            return userData[0][0];
+        if(!userData){
+            return false;
         }
 
-        const ID = userData[0][0].ID;
+        const ID = userData.ID;
         const permissions = await this.UserRepository.query(`SELECT getPermissions(${ID});`);
 
         // console.log({
@@ -36,7 +41,7 @@ export class UsersService {
         console.log(permissions)
 
         return {
-            user: userData[0][0],
+            user: userData,
             privileges: permissions[0][`getPermissions(${ID})`] != null ? permissions[0][`getPermissions(${ID})`].split(', ') : [null]
         }
     }
