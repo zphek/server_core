@@ -35,8 +35,7 @@ export class ProductsService {
     async getProductById(ID:number){
         return await this.ProductRepository.findOne({
             where:{
-                ID,
-                isVisible: true
+                ID
             }
         });
     }
