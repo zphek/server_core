@@ -18,8 +18,8 @@ export class ProductsController {
     }
 
     @Get("get/:id")
-    getProductById(@Param('id') id:number){
-        return this.service.getProductById(id);
+    async getProductById(@Param('id') id:number){
+        return await this.service.getProductById(id);
     }
 
     @Get("filter/:category")
