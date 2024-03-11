@@ -85,7 +85,7 @@ export class InvoiceService {
   }
 
   async getByClientName(name: string): Promise<Invoice[]> {
-    return await this.InvoiceRepository.query('SELECT * FROM invoices INNER JOIN clients ON invoices.client_id = clients.ID;')
+    return await this.InvoiceRepository.query(`SELECT * FROM invoices INNER JOIN clients ON invoices.client_id = clients.ID WHERE client_fullname = '${name}';`)
   }
   
 
