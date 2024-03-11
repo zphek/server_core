@@ -23,7 +23,8 @@ class Services{
     isVisible: boolean
 }
 
-export class createQuote{
+export class addItems{
     products: Products[]
-    Services: Services[]
+    services: Services[]
+    invoice_id: number
 }

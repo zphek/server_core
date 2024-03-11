@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseGuards, Req, HttpException } from '@nestjs/common';
 import { InvoiceService } from './invoice.service';
-import { CreateInvoice } from './dto/invoice-dto';
+import { CreateInvoice, addItems } from './dto/invoice-dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { ApiTags } from '@nestjs/swagger';
-
+import { Request } from 'express';
 
 @Controller('invoice')
 @ApiTags('Invoices endpoints:')
@@ -18,12 +18,22 @@ export class InvoiceController {
 
   @Get('get')
   findAll() {
-    return this.invoiceService.findAll();
+    return this.invoiceService.getInvoices();
+  }
+
+  @Post("add")
+  async addToInvoice(@Body() items:addItems, @Req() request:Request){
+    if(!items.services && !items.services){
+      throw new HttpException("There's no Services or Products to add.", 500);
+    }
+
+    const data = request['user']
+    return await this.invoiceService.addItems(items, data);
   }
 
   @Get('get/:id')
   findOne(@Param('id') id: number) {
-    return this.invoiceService.findOne(id);
+    return this.invoiceService.getInvoiceDetails(id);
   }
 
   @Put('update')

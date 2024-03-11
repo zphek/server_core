@@ -25,6 +25,9 @@
         profile_type: number
 
         @Column()
+        client_id: number
+
+        @Column()
         createdAt: Date
 
         @Column()

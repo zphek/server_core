@@ -17,31 +17,24 @@ export class UsersService {
             response.password = resp;
         })
 
-        // console.log(response);
+        console.log(response);
 
-        const userData = await this.UserRepository.findOne({
+        const user = await this.UserRepository.findOne({
             where: {
                 username: response.username,
                 user_password: response.password
             }
         });
 
-        if(!userData){
+        if(!user){
             return false;
         }
 
-        const ID = userData.ID;
+        const ID = user.ID;
         const permissions = await this.UserRepository.query(`SELECT getPermissions(${ID});`);
 
-        // console.log({
-        //     user: userData[0][0],
-        //     privileges: permissions[0][`getPermissions(${ID})`]
-        // })
-
-        console.log(permissions)
-
         return {
-            user: userData,
+            user,
             privileges: permissions[0][`getPermissions(${ID})`] != null ? permissions[0][`getPermissions(${ID})`].split(', ') : [null]
         }
     }
@@ -65,7 +58,7 @@ export class UsersService {
     
         bcrypt.hash(response.user_password, 20040915).then(resp=>{
             response.user_password = resp;
-        })  
+        })
 
         try {
             console.log(data)

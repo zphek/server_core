@@ -28,7 +28,7 @@ export class AuthController {
             throw new NotFoundException("Incorrect username or password.");
         }
 
-        console.log(Data)
+        console.dir(Data)
 
         return { accessToken: this.JwtService.sign(Data) };
     }
