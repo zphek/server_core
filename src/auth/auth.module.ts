@@ -10,7 +10,7 @@ import { User } from 'src/db/entities/User';
   imports: [UsersModule, JwtModule.register({
     global: true,
     secret: '20040915',
-    signOptions: { expiresIn: '2h' },
+    signOptions: { expiresIn: '2h' }
   }), TypeOrmModule.forFeature([User])],
   controllers: [AuthController],
   providers: [AuthServices]

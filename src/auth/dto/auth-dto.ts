@@ -19,6 +19,7 @@ export class User{
     email: string
     phone_number: string
     profile_type: number
+    client_id: number
 }
 
 export class payload{
