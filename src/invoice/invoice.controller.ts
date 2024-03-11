@@ -21,6 +21,17 @@ export class InvoiceController {
     return this.invoiceService.getInvoices();
   }
 
+  @Get('get/:id')
+  findOne(@Param('id') id: number) {
+    return this.invoiceService.getInvoiceDetails(id);
+  }
+
+  @Get('getByName/:client_name')
+  async getByClientName(@Param('client_name') name:string){
+    
+    return await this.invoiceService.getByClientName(name);
+  }
+
   @Post("add")
   async addToInvoice(@Body() items:addItems, @Req() request:Request){
     if(!items.services && !items.services){
@@ -29,11 +40,6 @@ export class InvoiceController {
 
     const data = request['user']
     return await this.invoiceService.addItems(items, data);
-  }
-
-  @Get('get/:id')
-  findOne(@Param('id') id: number) {
-    return this.invoiceService.getInvoiceDetails(id);
   }
 
   @Put('update')

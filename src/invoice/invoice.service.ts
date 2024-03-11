@@ -42,7 +42,8 @@ export class InvoiceService {
       } else {
         const response = await this.InvoiceRepository.save({
           client_id: data.user.client_id,
-          total_amount: 0
+          total_amount: 0,
+          payment_method_id: 1
         })
   
         ID = response.ID;
@@ -82,6 +83,11 @@ export class InvoiceService {
       throw new HttpException(error.message || 'Internal server error', error.status || HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async getByClientName(name: string): Promise<Invoice[]> {
+    return await this.InvoiceRepository.query('SELECT * FROM invoices INNER JOIN clients ON invoices.client_id = clients.ID;')
+  }
+  
 
   update(id: number, updateInvoiceDto: any) {
     return `This action updates a #${id} invoice`;
