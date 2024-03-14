@@ -1,7 +1,9 @@
-import { Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { response } from 'express';
+import { updateUser } from './dto/user-dto';
 
 @ApiTags("User's endpoints:")
 @Controller('users')
@@ -20,7 +22,7 @@ export class UsersController {
     }
     
     @Put('update')
-    updateUser(){
+    updateUser(@Body() response:updateUser){
         return {
             error: false,
             message: "Updated!"

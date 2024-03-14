@@ -61,29 +61,6 @@ export class ProductsService {
         return products;
     }
 
-    // async addProduct(response:addProduct, user:any){
-    //     const quote = await this.QuoteRepository.save({
-    //         client_id: user.ID,
-    //         quote_date: new Date(),
-    //         Status: "Pending",
-    //         total_amount: 0
-    //     })
-
-    //     try {
-    //         response.products.map(async (ele)=>{
-    //             const qp = await this.QuoteProductsRepository.save({
-    //                 id_product: ele.ID,
-    //                 id_quote: quote.ID,
-    //                 quantity: ele.quantity,
-    //             })
-    //         });
-    //     } catch (error) {
-    //         throw error;
-    //     }
-
-    //     return { message: "Successful!", error: false }
-    // }
-
     async createProduct(new_product: createProduct, file:Express.Multer.File) {
         
         const productExist = this.ProductRepository.findOne({

@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseGuards, Req,
 import { InvoiceService } from './invoice.service';
 import { CreateInvoice, addItems } from './dto/invoice-dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 
 @Controller('invoice')
@@ -33,6 +33,28 @@ export class InvoiceController {
   }
 
   @Post("add")
+  @ApiBody({
+    type: addItems,
+    schema: {
+      properties: {
+        products: {
+          type: 'array',
+          items: {
+            $ref: '#/components/schemas/Products' // Referencia a la clase Products
+          }
+        },
+        services: {
+          type: 'array',
+          items: {
+            $ref: '#/components/schemas/Services' // Referencia a la clase Services
+          }
+        },
+        invoice_id: {
+          type: 'number'
+        }
+      }
+    }
+  })
   async addToInvoice(@Body() items:addItems, @Req() request:Request){
     if(!items.services && !items.services){
       throw new HttpException("There's no Services or Products to add.", 500);

@@ -27,12 +27,6 @@ export class ProductsController {
         return await this.service.filterProductsByCategory(category);
     }
 
-    // @Post("add")
-    // @UseGuards(AuthGuard)
-    // async addProduct(@Body() response:addProduct, @Req() request:Request){
-    //     return await this.service.addProduct(response, request['user']);
-    // }
-
     @Post("create")
     @UseInterceptors(FileInterceptor('file'))
     @UseGuards(AuthGuard)

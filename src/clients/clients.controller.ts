@@ -1,8 +1,9 @@
 import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { ClientsService } from './clients.service';
-import { createClient } from './dto/client-dto';
+import { createClient, updateClient } from './dto/client-dto';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { response } from 'express';
 
 @ApiTags("Clients endpoints:")
 @Controller('clients')
@@ -11,23 +12,23 @@ export class ClientsController {
     constructor( private clientsService: ClientsService ){}
 
     @Post("create")
-    createClient(@Body() response: createClient){
-        return response;
+    async createClient(@Body() response: createClient){
+        return await this.clientsService.createClient(response);
     }
 
     @Get("get")
-    getClients(@Req() request:Request){
+    async getClients(@Req() request:Request){
         console.log(request['user']);
-        return this.clientsService.getClients();
+        return await this.clientsService.getClients();
     }
 
     @Get("get/:id")
-    getClientById(@Param('id') id:number){
-        return this.clientsService.getClientsById(id);
+    async getClientById(@Param('id') id:number){
+        return await this.clientsService.getClientsById(id);
     }
 
     @Put("update")
-    updateClient(){
-        
+    async updateClient(@Body() response:updateClient){
+        return await this.clientsService.updateClient(response);
     }
 }
