@@ -16,6 +16,9 @@ export class Invoice{
     total_amount: number
 
     @Column()
+    payment_method_id: number
+
+    @Column()
     created_at: Date
 
     @Column()

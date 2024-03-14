@@ -26,6 +26,11 @@ export const requiredPrivileges: Record<string, string[]> = {
     '/quotes/create': ['ALL', 'Quotes'],
     '/quotes/update': ['ALL', 'Quotes'],
 
+    // INVOICES ROUTES.
+    '/invoice/get': ['ALL', 'Invoices'],
+    '/invoice/getByName': ['ALL', 'Invoices'],
+    '/invoice/update': ['ALL', 'Invoices'],
+
     // ACCOUNTS-RECEIVABLE ROUTES.
     '/accounts-receivable/get':['ALL', 'Account_R'],
     '/accounts-receivable/create':['ALL', 'Account_R'],

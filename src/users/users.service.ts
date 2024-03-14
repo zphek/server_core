@@ -65,10 +65,11 @@ export class UsersService {
             if(data && data.privileges){
                 if(Array.isArray(data.privileges) && (data.privileges.includes('ALL') || data.privileges.includes('Users'))) {
                     return await this.UserRepository.save({
-                        user: response.username,
+                        username:  response.username,
                         full_name: response.full_name,
                         profile_type: response.profile_type,
                         phone_number: response.phone_number,
+                        email:  response.email,
                         user_password: response.user_password
                     })
                 }            
@@ -80,7 +81,7 @@ export class UsersService {
         }
     }
 
-    async getAllUsers(): Promise<any>{
+    async getAllUsers(): Promise<User[]>{
         return await this.UserRepository.find();
     }
 

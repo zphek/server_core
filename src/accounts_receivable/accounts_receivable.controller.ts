@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { createAccountR } from './dto/accounts-dto';
 
 @ApiTags("Accounts receivable endpoints:")
 @Controller('accounts-receivable')
@@ -17,7 +18,7 @@ export class AccountsReceivableController {
     }
 
     @Post("create")
-    createAccount(){
+    createAccount(@Body() response:createAccountR){
         
     }
 
