@@ -8,6 +8,9 @@ export class Profile{
     @Column()
     profile_role: string
 
+    @Column()
+    role_description: string
+
     @Column({ default: new Date() })
     createdAt: Date
 
