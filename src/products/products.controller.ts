@@ -1,4 +1,4 @@
-import { Body, Controller, FileTypeValidator, Get, MaxFileSizeValidator, Param, ParseFilePipe, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, FileTypeValidator, Get, MaxFileSizeValidator, Param, ParseFilePipe, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UpdateProduct, createProduct } from './dto/products-dto';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
@@ -43,5 +43,11 @@ export class ProductsController {
     @UseGuards(AuthGuard)
     async updateProduct(@Body() response:UpdateProduct){
         return await this.service.updateProduct(response);
+    }
+
+    @Delete("delete/:id")
+    @UseGuards(AuthGuard)
+    async deleteProduct(@Param('id') id:number){
+        return await this.service.deleteProduct(id);
     }
 }

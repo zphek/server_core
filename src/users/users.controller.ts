@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Put, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
@@ -23,9 +23,11 @@ export class UsersController {
     
     @Put('update')
     updateUser(@Body() response:updateUser){
-        return {
-            error: false,
-            message: "Updated!"
-        };
+        
+    }
+
+    @Delete('delete/:id')
+    deleteUser(@Param('id') id:number){
+        
     }
 }

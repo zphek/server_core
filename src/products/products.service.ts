@@ -96,4 +96,12 @@ export class ProductsService {
 
          return updated_product;
     }
+
+    async deleteProduct(id:number){
+        const updated_product = await this.ProductRepository.update(id, { 
+            isVisible: false,
+         })
+
+         return updated_product;
+    }
 }
