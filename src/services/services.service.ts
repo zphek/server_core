@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Service } from 'src/db/entities/Service';
 import { Repository } from 'typeorm';
@@ -37,5 +37,11 @@ export class ServicesService {
         const service = await this.ServiceRepository.findOne({ where: { ID } });
         
         return await this.ServiceRepository.save(service);
+    }
+
+    async deleteService(ID:number){
+        return await this.ServiceRepository.update(ID, {
+            isVisible: false
+        })
     }
 }
