@@ -7,6 +7,7 @@ export const requiredPrivileges: Record<string, string[]> = {
     '/profiles/get': ['ALL', 'Profiles'],
     '/profiles/create': ['ALL', 'Profiles'],
     '/profiles/update': ['ALL', 'Profiles'],
+    '/profiles/delete': ['ALL', 'Profiles'],
 
     // PRODUCTS ROUTES.
     '/products/create': ['ALL', 'Products'],

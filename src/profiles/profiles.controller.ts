@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
 import { createProfile } from './dto/profiles-dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -11,8 +11,8 @@ export class ProfilesController {
     constructor(private profilesServices:ProfilesService){}
 
     @Get("get")
-    getProfiles(){
-        
+    async getProfiles(){
+        return await this.profilesServices.getProfiles();
     }
 
     @Get('get/:id')
@@ -28,5 +28,10 @@ export class ProfilesController {
     @Put("update")
     updateProfile(){
 
+    }
+
+    @Delete("delete/:id")
+    async deleteProfile(@Param('id') id:number){
+        return await this.profilesServices.deleteProfile(id);
     }
 }

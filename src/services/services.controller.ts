@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { createService, updateService } from './dto/services-dto';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
@@ -29,5 +29,10 @@ export class ServicesController {
     @UseGuards(AuthGuard)
     async updateService(@Body('id') id:number, @Body() response:updateService){
         return await this.service.updateService(id, response);
+    }
+
+    @Delete('delete/:id')
+    async deleteService(@Body('id') id:number){
+        return await this.service.deleteService(id);
     }
 }
