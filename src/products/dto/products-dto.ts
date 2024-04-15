@@ -28,8 +28,8 @@ export class createProduct{
     @ApiProperty()
     isVisible: string
 
-    @ApiProperty()
-    file: any
+    // @ApiProperty()
+    // file: any
 
     @IsNotEmpty()
     @IsString()

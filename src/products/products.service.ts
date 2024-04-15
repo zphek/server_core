@@ -80,7 +80,7 @@ export class ProductsService {
             price: parseInt(new_product.price),
             category_id: parseInt(new_product.category_id),
             stock: parseInt(new_product.stock),
-            url_image: new_product.file,
+            url_image: new_product.url_image,
             createdAt: new Date(),
             updatedAt: new Date(),
             isVisible: true,
