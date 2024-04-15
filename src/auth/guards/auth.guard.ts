@@ -33,8 +33,6 @@ export class AuthGuard implements CanActivate{
             
             request['user'] = payload;
             
-            //console.log(request.url)
-
             if(!this.hasRequiredLevel(payload, request.url)){
                 return false;
             }

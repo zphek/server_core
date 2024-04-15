@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
+import { File } from "buffer"
 import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator"
 
 export class createProduct{
@@ -8,28 +9,27 @@ export class createProduct{
     product_name: string
     
     @IsNotEmpty()
-    @IsNumber()
+    @IsString()
     @ApiProperty()
-    stock: number
+    stock: string
     
     @IsNotEmpty()
-    @IsNumber()
+    @IsString()
     @ApiProperty()
-    category_id: number
+    category_id: string
 
     @IsNotEmpty()
-    @IsNumber()
+    @IsString()
     @ApiProperty()
-    price: number
+    price: string
 
     @IsNotEmpty()
-    @IsBoolean()
+    @IsString()
     @ApiProperty()
-    isVisible: boolean
+    isVisible: string
 
-    @IsNotEmpty()
     @ApiProperty()
-    File: string
+    file: any
 
     @IsNotEmpty()
     @IsString()

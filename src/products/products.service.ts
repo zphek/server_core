@@ -73,15 +73,17 @@ export class ProductsService {
             throw new ProductAlreadyExistsException();
         }
 
-        const {url} = await this.CloudService.uploadFile(file);
+        // const {url} = await this.CloudService.uploadFile(file);
         //const url = "";
         return await this.ProductRepository.save({
             product_name: new_product.product_name,
-            price: new_product.price,
-            category_id: new_product.category_id,
-            stock: new_product.stock,
-            url_image: url,
-            isVisible: new_product.isVisible
+            price: parseInt(new_product.price),
+            category_id: parseInt(new_product.category_id),
+            stock: parseInt(new_product.stock),
+            url_image: new_product.file,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            isVisible: true,
         });
     }
 

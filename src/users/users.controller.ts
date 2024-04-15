@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Put, UseGuards } from '@nestjs/co
 import { UsersService } from './users.service';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { response } from 'express';
 import { updateUser } from './dto/user-dto';
 
 @ApiTags("User's endpoints:")
