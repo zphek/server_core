@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { payload, signIn, signUp } from '../auth/dto/auth-dto';
 import { User } from '../db/entities/User';
 import { Repository } from 'typeorm';
+
 import * as bcrypt from "bcrypt";
 
 @Injectable()
@@ -74,6 +75,8 @@ export class UsersService {
                     })
                 }            
             }
+
+
 
             return await this.UserRepository.query(`CALL users_sign_up('${response.username}', '${response.full_name}', '${response.user_password}', '${response.email}', '${response.phone_number}');`);
         } catch (error) {

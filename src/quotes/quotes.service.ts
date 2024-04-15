@@ -21,7 +21,7 @@ export class QuotesService {
 
     async createQuote(response:createQuote, ID:number){
         this.QuotesRepository.save({
-
+            
         })
     }
 
