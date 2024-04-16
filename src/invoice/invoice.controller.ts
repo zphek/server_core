@@ -22,41 +22,18 @@ export class InvoiceController {
   }
 
   @Get('get/:id')
-  findOne(@Param('id') id: number) {
-    return this.invoiceService.getInvoiceDetails(id);
+  async findOne(@Param('id') id: number) {
+    return await this.invoiceService.getInvoicesDetails(id);
   }
 
-  @Get('getByName/:client_name')
-  async getByClientName(@Param('client_name') name:string){
-    
-    return await this.invoiceService.getByClientName(name);
+  @Get('getByEmail/:email')
+  async getByClientName(@Param('email') email:string){
+    return await this.invoiceService.getByEmail(email);
   }
 
   @Post("add")
-  @ApiBody({
-    type: addItems,
-    schema: {
-      properties: {
-        products: {
-          type: 'array',
-          items: {
-            $ref: '#/components/schemas/Products' // Referencia a la clase Products
-          }
-        },
-        services: {
-          type: 'array',
-          items: {
-            $ref: '#/components/schemas/Services' // Referencia a la clase Services
-          }
-        },
-        invoice_id: {
-          type: 'number'
-        }
-      }
-    }
-  })
   async addToInvoice(@Body() items:addItems, @Req() request:Request){
-    if(!items.services && !items.services){
+    if(!items.products && !items.services){
       throw new HttpException("There's no Services or Products to add.", 500);
     }
 

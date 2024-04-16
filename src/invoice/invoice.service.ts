@@ -29,10 +29,6 @@ export class InvoiceService {
     return await this.InvoiceRepository.find();
   }
 
-  async getInvoiceDetails(id: number) {
-    return await this.InvoiceRepository.query("");
-  }
-
   async addItems(items:addItems, data:payload){
     let ID = 0;
     const queryRunner = this.dataSource.createQueryRunner();
@@ -115,16 +111,57 @@ export class InvoiceService {
     }
   }
 
-  async getByClientName(name: string): Promise<Invoice[]> {
-    return await this.InvoiceRepository.query(`SELECT * FROM invoices INNER JOIN clients ON invoices.client_id = clients.ID WHERE client_fullname = '${name}';`)
+  async getByEmail(email: string): Promise<Invoice[]> {
+    try {
+      const invoice = await this.InvoiceRepository.query(`SELECT * FROM invoices INNER JOIN clients ON invoices.client_id = clients.ID WHERE email = '${email}';`);
+
+      if(!invoice){
+        throw new Error("This email doesn't have invoices related to.");
+      }
+
+      return await invoice;
+    } catch (error) {
+      throw new HttpException(error.message, 500);
+    }
   }
   
+  async getInvoicesDetails(ID:number){
+    try {
+      const invoice = await this.InvoiceRepository.findOne({ where: { ID }})
+
+      if(!invoice){
+        throw new Error("The given invoice id doesn't exist.");
+      }
+
+      const products = await this.InvoiceRepository.query(`SELECT products.ID, products.product_name, ipd.quantity, products.price, (ipd.quantity * products.price) AS total FROM invoices INNER JOIN invoice_product_details AS ipd ON ipd.invoice_id = invoices.ID INNER JOIN products ON products.ID = ipd.product_id WHERE invoices.ID = ${ID}`)
+      const services = await this.InvoiceRepository.query(`SELECT services.ID, services.service_name, services.price, (services.price*1) AS total FROM invoices INNER JOIN invoice_service_details AS isd ON isd.invoice_id = invoices.ID  INNER JOIN services ON services.ID = isd.service_id WHERE invoices.ID = ${ID}`)
+
+      return {
+        invoice: invoice ? invoice : [null],
+        products: products ? products : [null],
+        services: services ? services : [null]
+      }
+      
+    } catch (error) {
+      throw new HttpException(error.message, 500); 
+    }
+  }
 
   async update(id: number, updateInvoiceDto: any) {
     return `This action updates a #${id} invoice`;
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} invoice`;
+  async remove(ID: number) {
+    try {
+      const invoice = await this.InvoiceRepository.findOne({ where:{ ID }})
+      if(!invoice){
+        throw new Error("This email doesn't have invoices related to.");
+      }
+      await this.InvoiceRepository.delete(invoice);
+
+      return new HttpException("The email was successfully deleted!", 200);
+    } catch (error) {
+      throw new HttpException(error.message, 500);
+    }
   }
 }

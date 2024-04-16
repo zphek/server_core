@@ -7,7 +7,6 @@ export class CreateInvoice {
     @ApiProperty()
     ID: number
 
-    @IsNotEmpty()
     @IsNumber()
     @ApiProperty()
     client_id: number
