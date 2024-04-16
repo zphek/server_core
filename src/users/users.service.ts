@@ -5,6 +5,7 @@ import { User } from '../db/entities/User';
 import { Repository } from 'typeorm';
 
 import * as bcrypt from "bcrypt";
+import { updateUser } from './dto/user-dto';
 
 @Injectable()
 export class UsersService {
@@ -76,8 +77,6 @@ export class UsersService {
                 }            
             }
 
-
-
             return await this.UserRepository.query(`CALL users_sign_up('${response.username}', '${response.full_name}', '${response.user_password}', '${response.email}', '${response.phone_number}');`);
         } catch (error) {
             throw new HttpException(error.sqlMessage, 500);
@@ -100,7 +99,26 @@ export class UsersService {
         return await this.UserRepository.query("");
     }
 
-    updateUser(){
+    updateUser(user: updateUser){
         
+    }
+
+    async deleteUser(ID:number){
+        const user = await this.UserRepository.findOne({ where: { ID } });
+
+        if(!user){
+            throw new HttpException(`The given user doesn't exist.`, 500);
+        }
+
+        try {
+            const response = await this.UserRepository.delete(user);
+            
+            return {
+                message: "User has been successfully deleted!",
+                error: false
+            }
+        } catch (error) {
+            return error
+        }
     }
 }

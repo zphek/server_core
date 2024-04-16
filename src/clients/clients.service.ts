@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Client } from 'src/db/entities/Client';
 import { EntityManager, Repository } from 'typeorm';
@@ -30,6 +30,16 @@ export class ClientsService {
                 ID
             }
         });
+    }
+
+    async deleteClient(ID:number){
+        const client = await this.ClientRepository.findOne({ where: { ID } });
+
+        if(!client){
+            throw new HttpException("The given client doesn't exist.", 500);
+        }
+
+        return await this.ClientRepository.delete(client);
     }
 
     async updateClient(response:updateClient){

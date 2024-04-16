@@ -29,7 +29,7 @@ export class ProductCService {
     });
   }
 
-  update(id: number, updateProductCDto) {
+  update(id: number) {
     return `This action updates a #${id} productC`;
   }
 }

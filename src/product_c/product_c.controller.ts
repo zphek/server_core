@@ -11,23 +11,23 @@ export class ProductCController {
 
   @Post('create')
   @UseGuards(AuthGuard)
-  create(@Body() response: CreateProductC) {
-    return this.productCService.create(response);
+  async create(@Body() response: CreateProductC) {
+    return await this.productCService.create(response);
   }
 
   @Get('get')
-  findAll() {
-    return this.productCService.findAll();
+  async findAll() {
+    return await this.productCService.findAll();
   }
 
   @Get('get/:id')
-  findById(@Param('id') ID:number) {
-    return this.productCService.findOne(ID);
+  async findById(@Param('id') ID:number) {
+    return await this.productCService.findOne(ID);
   }
 
   @Post('update')
   @UseGuards(AuthGuard)
   findOne(@Param('id') id: number) {
-    return "..........";
+    return 
   }
 }

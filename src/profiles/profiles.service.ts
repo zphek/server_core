@@ -26,7 +26,7 @@ export class ProfilesService {
         const profile = await this.ProfileRepository.findOne({ where: { ID } });
 
         if(!profile){
-            throw new HttpException(`The profile ID proporcionated match with any.`, 500);
+            throw new HttpException(`The profile ID proporcionated doesn't exist.`, 500);
         }
 
         return await this.ProfileRepository.delete(profile);

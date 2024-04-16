@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
-import { createProfile } from './dto/profiles-dto';
+import { createProfile, updateProfile } from './dto/profiles-dto';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { response } from 'express';
 
 @ApiTags("Profiles endpoints:")
 @Controller('profiles')
@@ -26,8 +27,8 @@ export class ProfilesController {
     }
 
     @Put("update")
-    updateProfile(){
-
+    async updateProfile(@Body() response: updateProfile){
+        return await this.profilesServices.updateProfile(response);
     }
 
     @Delete("delete/:id")

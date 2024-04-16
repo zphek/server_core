@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { createClient, updateClient } from './dto/client-dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -25,6 +25,11 @@ export class ClientsController {
     @Get("get/:id")
     async getClientById(@Param('id') id:number){
         return await this.clientsService.getClientsById(id);
+    }
+
+    @Delete("delete/:id")
+    async deleteClient(@Param('id') id:number){
+        return await this.clientsService.deleteClient(id);
     }
 
     @Put("update")

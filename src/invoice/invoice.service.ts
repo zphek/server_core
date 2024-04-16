@@ -120,11 +120,11 @@ export class InvoiceService {
   }
   
 
-  update(id: number, updateInvoiceDto: any) {
+  async update(id: number, updateInvoiceDto: any) {
     return `This action updates a #${id} invoice`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} invoice`;
   }
 }
