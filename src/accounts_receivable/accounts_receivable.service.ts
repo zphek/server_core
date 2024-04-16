@@ -14,14 +14,8 @@ export class AccountsReceivableService {
         return await this.AccountsReceivable.find();
     }
 
-    async getAccountById(){
-        return await this.AccountsReceivable;
-    }
-
-    async createAccount(){
-        return await this.AccountsReceivable.save({
-
-        })
+    async getAccountById(ID:number){
+        return await this.AccountsReceivable.findOne({ where:{account_id: ID}});
     }
 
     async updateAccount(){
