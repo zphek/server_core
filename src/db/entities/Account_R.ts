@@ -19,10 +19,10 @@ export class Account_R{
     status: string
 
     @Column({ default: new Date() })
-    createdAt: Date
+    created_at: Date
 
     @Column({ default: new Date() })
-    updatedAt: Date
+    updated_at: Date
 
     constructor(account: Partial<Account_R>){
         Object.assign(this, account);
