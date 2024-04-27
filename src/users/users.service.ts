@@ -15,7 +15,7 @@ export class UsersService {
     ){}
 
     async signIn(response:signIn) {
-        bcrypt.hash(response.password, 20040915).then(resp=>{
+        bcrypt.hash(response.password, SECRET).then(resp=>{
             response.password = resp;
         })
 
@@ -58,7 +58,7 @@ export class UsersService {
             throw new HttpException('This user exist, choose another username.', 500);   
         }
     
-        bcrypt.hash(response.user_password, 20040915).then(resp=>{
+        bcrypt.hash(response.user_password, SECRET).then(resp=>{
             response.user_password = resp;
         })
 

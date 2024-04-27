@@ -12,11 +12,11 @@ import { Service } from './entities/Service';
 @Module({
     imports: [TypeOrmModule.forRoot({
         type: 'mysql',
-        host: process.env.DB_HOST || 'localhost',
+        host: process.env.DB_HOST,
         port: 3306,
         database: 'ventas',
-        username: process.env.DB_USER || 'root',
-        password: process.env.DB_PASSWORD || '1234',
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
         autoLoadEntities: true,
         synchronize: false,
         entities: [ Client, Invoice, User, Quote, Account_R, Profile, Product, Service ],
